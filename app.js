@@ -1,6 +1,7 @@
 let ingredients = JSON.parse(localStorage.getItem("ingredients")) || [];
 let meals = JSON.parse(localStorage.getItem("meals")) || [];
 
+// Uloženie do localStorage
 function saveData() {
   localStorage.setItem("ingredients", JSON.stringify(ingredients));
   localStorage.setItem("meals", JSON.stringify(meals));
@@ -17,7 +18,7 @@ function checkCode() {
   }
 }
 
-// RESET
+// RESET všetkého
 function resetAll() {
   if (confirm("Naozaj chceš všetko vymazať?")) {
     localStorage.clear();
@@ -59,25 +60,27 @@ function addMeal() {
   mealPrice.value = "";
 }
 
-// PRIDAŤ INGREDIENCIE K JEDLU
+// PRIDAŤ VIAC INGREDIENCIÍ K JEDLU NARAZ
 function addIngredientToMeal() {
-  const m = mealSelect.value;
-  const selectedOptions = Array.from(ingSelect.selectedOptions);
+  const mealIndex = mealSelect.value;
+  const selectedOptions = Array.from(ingSelect.selectedOptions); // všetky vybrané ingrediencie
 
-  if (m === "" || selectedOptions.length === 0) return alert("Vyber jedlo aj ingrediencie");
+  if (mealIndex === "" || selectedOptions.length === 0) {
+    return alert("Vyber jedlo aj ingrediencie!");
+  }
 
   selectedOptions.forEach(option => {
-    const i = option.value;
-    const grams = ingredients[i].grams; // automaticky berieme gramáž z ingrediencie
-    meals[m].ingredients.push({ ingIndex: i, grams });
+    const ingIndex = option.value;
+    const grams = ingredients[ingIndex].grams; // berie gramáž z ingrediencie
+    meals[mealIndex].ingredients.push({ ingIndex, grams });
   });
 
   saveData();
   renderAll();
-  ingSelect.selectedIndex = -1; // odznačí všetko
+  ingSelect.selectedIndex = -1; // odznačí všetky vybrané ingrediencie
 }
 
-// RENDER
+// RENDER VŠETKÉHO
 function renderAll() {
   renderIngredients();
   renderMeals();
@@ -133,7 +136,7 @@ function renderMeals() {
   });
 }
 
-// RENDER SELECTOV
+// RENDER SELECTOV PRE PRIDANIE INGREDIENCIÍ
 function renderSelects() {
   mealSelect.innerHTML = '<option value="">Vyber jedlo</option>';
   ingSelect.innerHTML = '';
