@@ -172,3 +172,177 @@ select[multiple] {
   text-align: center;
 }
 
+.home-screen {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  text-align: center;
+}
+
+.logo {
+  font-size: 48px;
+  font-weight: bold;
+}
+
+/* Hamburger */
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.hamburger div {
+  width: 35px;
+  height: 4px;
+  background: #00ffae;
+  border-radius: 4px;
+}
+
+/* Skryté menu */
+.menu-options {
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+/* ===================== */
+/* ÚVODNÁ OBRAZOVKA */
+/* ===================== */
+
+.center-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+  background: linear-gradient(135deg, #1e1e2f, #2c2c44);
+  color: white;
+}
+
+.center-screen h1 {
+  font-size: 48px;
+  margin-bottom: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+/* Globálne pozadie */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #1e1e2f, #2c2c44);
+  color: white;
+}
+
+.menu-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.menu-buttons button {
+  padding: 14px 40px;
+  font-size: 18px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background: #ff6b00;
+  color: white;
+  transition: 0.3s;
+}
+
+.menu-buttons button:hover {
+  background: #ff8500;
+  transform: scale(1.05);
+}
+
+.back-button {
+  margin-top: 30px;
+  padding: 12px 30px;
+  background: #e53935;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.back-button:hover {
+  background: #ff3b3b;
+  transform: scale(1.05);
+}
+
+/* ===================== */
+/* RECEPTY STRÁNKA */
+/* ===================== */
+
+#recipesPage {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  position: relative;
+  padding-top: 30px;
+}
+
+.recipes-title {
+  text-align: center;
+  font-size: 40px;
+  margin-bottom: 40px;
+}
+
+.recipes-content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Späť tlačidlo dole vľavo */
+.back-fixed {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  padding: 12px 25px;
+  background: #e53935;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.back-fixed:hover {
+  background: #ff3b3b;
+  transform: scale(1.05);
+}
+
+.recipe-card {
+  background: white;
+  color: black;
+  padding: 20px;
+  border-radius: 12px;
+  width: 350px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  text-align: left;
+}
+
+.recipe-card img {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.recipe-card h2 {
+  text-align: center;
+  margin-bottom: 15px;
+}
