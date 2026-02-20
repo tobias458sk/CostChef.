@@ -12,23 +12,41 @@
 
   <h1>CostChef</h1>
 
-  <!-- 1. INGREDIENCIA -->
+  <button onclick="clearAll()" class="danger">Vymazať všetko</button>
+
+  <!-- SUMMARY -->
+  <section class="card summary">
+    <h2>Prehľad</h2>
+    <div class="summary-grid">
+      <div>
+        <small>Počet ingrediencií</small>
+        <div id="sumIngredients" class="big">0</div>
+      </div>
+
+      <div>
+        <small>Počet jedál</small>
+        <div id="sumMeals" class="big">0</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INGREDIENCIE -->
   <section class="card">
-    <h2>1. Pridať ingredienciu</h2>
+    <h2>Ingrediencie</h2>
 
     <div class="row">
       <input id="ingName" placeholder="Názov ingrediencie">
       <input id="ingPrice" type="number" step="0.01" placeholder="Cena €/kg">
-      <input id="ingGrams" type="number" step="1" placeholder="g na porciu">
+      <input id="ingGrams" type="number" step="1" placeholder="g (predvolené)">
       <button onclick="addIngredient()">Pridať</button>
     </div>
 
     <ul id="ingredientsList"></ul>
   </section>
 
-  <!-- 2. JEDLO -->
+  <!-- JEDLÁ -->
   <section class="card">
-    <h2>2. Vytvoriť jedlo</h2>
+    <h2>Jedlá</h2>
 
     <div class="row">
       <input id="mealName" placeholder="Názov jedla">
@@ -39,13 +57,13 @@
     <ul id="mealsList"></ul>
   </section>
 
-  <!-- 3. PRIDAŤ INGREDIENCIE -->
+  <!-- ROZBOR -->
   <section class="card">
-    <h2>3. Pridať ingrediencie do jedla</h2>
+    <h2>Rozbor jedla</h2>
 
     <div class="row">
       <select id="mealSelect"></select>
-      <select id="ingSelect" multiple size="6"></select>
+      <select id="ingSelect"></select>
       <button onclick="addIngredientToMeal()">Pridať do jedla</button>
     </div>
 
