@@ -12,29 +12,28 @@ function clearAll() {
   if (confirm("Naozaj chceš vymazať všetko?")) {
     ingredients = [];
     meals = [];
-    localStorage.clear();
+    localStorage.removeItem("ingredients");
+    localStorage.removeItem("meals");
     renderAll();
   }
 }
- 
+
 // PRIDAŤ INGREDIENCIU
 function addIngredient() {
   const name = ingName.value.trim();
   const price = parseFloat(ingPrice.value);
-  const grams = parseFloat(ingGrams.value);
 
-  if (!name || isNaN(price) || isNaN(grams)) {
+  if (!name || isNaN(price)) {
     alert("Vyplň všetko");
     return;
   }
 
-  ingredients.push({ name, price, grams });
+  ingredients.push({ name, price });
   saveData();
   renderAll();
 
   ingName.value = "";
   ingPrice.value = "";
-  ingGrams.value = "";
 }
 
 // PRIDAŤ JEDLO
@@ -55,7 +54,7 @@ function addMeal() {
   mealPrice.value = "";
 }
 
-// PRIDAŤ INGREDIENCIU DO JEDLA (zadáš vlastné gramy)
+// PRIDAŤ INGREDIENCIU DO JEDLA
 function addIngredientToMeal() {
   const mealIndex = mealSelect.value;
   const ingIndex = ingSelect.value;
@@ -65,7 +64,7 @@ function addIngredientToMeal() {
     return;
   }
 
-  const grams = parseFloat(prompt("Zadaj počet gramov pre túto surovinu:"));
+  const grams = parseFloat(prompt("Zadaj počet gramov:"));
 
   if (isNaN(grams)) {
     alert("Zadaj správne číslo");
@@ -81,11 +80,13 @@ function addIngredientToMeal() {
 // VÝPOČET NÁKLADOV
 function calculateCost(meal) {
   let total = 0;
+
   meal.ingredients.forEach(item => {
     const ing = ingredients[item.ingIndex];
     if (!ing) return;
     total += (ing.price / 1000) * item.grams;
   });
+
   return total;
 }
 
@@ -125,7 +126,7 @@ function renderMeals() {
     if (margin < 30) marginColor = "#ff3b3b";
     else if (margin < 70) marginColor = "#ffaa00";
 
-    let mealClass = profit < 0 ? "meal-card loss" : "meal-card";
+    let mealClass = profit < 0 ? "loss" : "";
 
     let ingredientsText = "";
     meal.ingredients.forEach(item => {
@@ -138,38 +139,16 @@ function renderMeals() {
 
     mealsList.innerHTML += `
       <li class="${mealClass}">
-        <h3>${meal.name}</h3>
-
-        <div class="meal-grid">
-          <div>
-            <small>Predajná cena</small>
-            <div class="big">${meal.price.toFixed(2)} €</div>
-          </div>
-
-          <div>
-            <small>Náklady</small>
-            <div class="big">${total.toFixed(2)} €</div>
-          </div>
-
-          <div>
-            <small>Zisk</small>
-            <div class="big">${profit.toFixed(2)} €</div>
-          </div>
-
-          <div>
-            <small>Marža</small>
-            <div class="big" style="color:${marginColor}">
-              ${margin.toFixed(1)} %
-            </div>
-          </div>
-        </div>
-
-        <div class="ingredients-list">
-          <strong>Ingrediencie:</strong><br>
-          ${ingredientsText || "žiadne"}
-        </div>
-
-        <button onclick="removeMeal(${i})" class="danger-small">Vymazať</button>
+        <strong>${meal.name}</strong><br>
+        Predaj: ${meal.price.toFixed(2)} €<br>
+        Náklady: ${total.toFixed(2)} €<br>
+        Zisk: ${profit.toFixed(2)} €<br>
+        Marža: <span style="color:${marginColor}">
+          ${margin.toFixed(1)} %
+        </span><br>
+        Ingrediencie: ${ingredientsText || "žiadne"}
+        <br>
+        <button onclick="removeMeal(${i})">❌</button>
       </li>
     `;
   });
@@ -191,8 +170,11 @@ function renderSelects() {
 
 // SUMMARY
 function renderSummary() {
-  sumIngredients.textContent = ingredients.length;
-  sumMeals.textContent = meals.length;
+  if (typeof sumIngredients !== "undefined")
+    sumIngredients.textContent = ingredients.length;
+
+  if (typeof sumMeals !== "undefined")
+    sumMeals.textContent = meals.length;
 }
 
 // MAZANIE
@@ -208,4 +190,5 @@ function removeMeal(i) {
   renderAll();
 }
 
+// INIT
 renderAll();
