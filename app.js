@@ -16,7 +16,7 @@ function clearAll() {
     renderAll();
   }
 }
-
+ 
 // PRIDAŤ INGREDIENCIU
 function addIngredient() {
   const name = ingName.value.trim();
