@@ -1,4 +1,19 @@
 // =====================
+// DOM ELEMENTY
+// =====================
+const ingName = document.getElementById("ingName");
+const ingPrice = document.getElementById("ingPrice");
+const ingGrams = document.getElementById("ingGrams");
+const ingredientsList = document.getElementById("ingredientsList");
+
+const mealName = document.getElementById("mealName");
+const mealPrice = document.getElementById("mealPrice");
+const mealsList = document.getElementById("mealsList");
+
+const mealSelect = document.getElementById("mealSelect");
+const ingredientCheckboxList = document.getElementById("ingredientCheckboxList");
+
+// =====================
 // DATA
 // =====================
 let ingredients = JSON.parse(localStorage.getItem("ingredients")) || [];
@@ -187,7 +202,13 @@ function renderSelects() {
   });
 }
 
-
+// =====================
+// MAZANIE INGREDIENCIE
+// =====================
+function removeIngredient(i) {
+  ingredients.splice(i, 1);
+  saveData();
+  renderAll();
 }
 
 // =====================
