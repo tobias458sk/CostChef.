@@ -14,22 +14,6 @@
 
   <button onclick="clearAll()" class="danger">Vymazať všetko</button>
 
-  <!-- SUMMARY -->
-  <section class="card summary">
-    <h2>Prehľad</h2>
-    <div class="summary-grid">
-      <div>
-        <small>Počet ingrediencií</small>
-        <div id="sumIngredients" class="big">0</div>
-      </div>
-
-      <div>
-        <small>Počet jedál</small>
-        <div id="sumMeals" class="big">0</div>
-      </div>
-    </div>
-  </section>
-
   <!-- INGREDIENCIE -->
   <section class="card">
     <h2>Ingrediencie</h2>
@@ -58,9 +42,16 @@
   </section>
 
   <!-- ROZBOR -->
- <select id="mealSelect"></select>
-<select id="ingSelect" multiple size="6"></select>
-<button onclick="addIngredientToMeal()">Pridať do jedla</button>
+  <section class="card">
+    <h2>Pridať ingrediencie do jedla</h2>
+
+    <div class="row">
+      <select id="mealSelect"></select>
+      <select id="ingSelect" multiple size="6"></select>
+    </div>
+
+    <button onclick="addIngredientToMeal()">Pridať do jedla</button>
+  </section>
 
 </div>
 
