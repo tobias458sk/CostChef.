@@ -104,11 +104,7 @@ function addSelectedIngredients() {
     const ingIndex = parseInt(cb.value);
     const grams = ingredients[ingIndex].grams;
 
-    meals[mealIndex].ingredients.push({
-      ingIndex,
-      grams
-    });
-
+    meals[mealIndex].ingredients.push({ ingIndex, grams });
     cb.checked = false;
   });
 
@@ -132,12 +128,12 @@ function renderIngredients() {
   ingredientsList.innerHTML = "";
 
   ingredients.forEach((ing, i) => {
-    ingredientsList.innerHTML += `
-      <li>
-        ${ing.name} — ${ing.price.toFixed(2)} €/kg | ${ing.grams} g
-        <button class="danger-small" onclick="removeIngredient(${i})">❌</button>
-      </li>
+    const li = document.createElement("li");
+    li.innerHTML = `
+      ${ing.name} — ${ing.price.toFixed(2)} €/kg | ${ing.grams} g
+      <button class="danger-small" onclick="removeIngredient(${i})">❌</button>
     `;
+    ingredientsList.appendChild(li);
   });
 }
 
@@ -158,26 +154,26 @@ function renderMeals() {
       const cost = (ing.price / 1000) * item.grams;
       total += cost;
 
-      text += `${ing.name} (${item.grams}g), `;
+      text += `${ing.name} (${item.ingIndex}g), `;
     });
 
     text = text.slice(0, -2);
 
     const profit = meal.price - total;
     const margin = meal.price > 0 ? (profit / meal.price) * 100 : 0;
-
     const lossClass = profit < 0 ? "loss" : "";
 
-    mealsList.innerHTML += `
-      <li class="${lossClass}">
-        <strong>${meal.name}</strong><br>
-        Predaj: ${meal.price.toFixed(2)} €<br>
-        Náklady: ${total.toFixed(2)} €<br>
-        Ingrediencie: ${text || "žiadne"}<br>
-        <b>Zisk: ${profit.toFixed(2)} € | Marža: ${margin.toFixed(1)} %</b>
-        <button class="danger-small" onclick="removeMeal(${i})">❌</button>
-      </li>
+    const li = document.createElement("li");
+    li.className = lossClass;
+    li.innerHTML = `
+      <strong>${meal.name}</strong><br>
+      Predaj: ${meal.price.toFixed(2)} €<br>
+      Náklady: ${total.toFixed(2)} €<br>
+      Ingrediencie: ${text || "žiadne"}<br>
+      <b>Zisk: ${profit.toFixed(2)} € | Marža: ${margin.toFixed(1)} %</b>
+      <button class="danger-small" onclick="removeMeal(${i})">❌</button>
     `;
+    mealsList.appendChild(li);
   });
 }
 
@@ -189,16 +185,26 @@ function renderSelects() {
   ingredientCheckboxList.innerHTML = "";
 
   meals.forEach((m, i) => {
-    mealSelect.innerHTML += `<option value="${i}">${m.name}</option>`;
+    const option = document.createElement("option");
+    option.value = i;
+    option.textContent = m.name;
+    mealSelect.appendChild(option);
   });
 
   ingredients.forEach((ing, i) => {
-    ingredientCheckboxList.innerHTML += `
-      <label class="checkbox-item">
-        <input type="checkbox" value="${i}">
-        ${ing.name} (${ing.grams}g | ${ing.price.toFixed(2)} €/kg)
-      </label>
-    `;
+    const label = document.createElement("label");
+    label.className = "checkbox-item";
+
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.value = i;
+
+    const span = document.createElement("span");
+    span.textContent = `${ing.name} (${ing.grams}g | ${ing.price.toFixed(2)} €/kg)`;
+
+    label.appendChild(checkbox);
+    label.appendChild(span);
+    ingredientCheckboxList.appendChild(label);
   });
 }
 
